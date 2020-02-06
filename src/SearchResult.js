@@ -4,10 +4,14 @@ import './SearchResult.css';
 export default class SearchResult extends React.Component {
   
   render() {
+    const {Title} = this.props;
+
     return (
-      <section id="results" className="hidden">
-        {this.props.searchResult}
-      </section>
+      <div className="movie">
+        <div className="title-year">
+            <h1 className="title">{Title}</h1>
+        </div>
+      </div>
     );
   }
 }

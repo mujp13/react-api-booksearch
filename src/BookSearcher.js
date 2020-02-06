@@ -2,11 +2,44 @@ import React from 'react';
 import './BookSearcher.css';
 
 export default class BookSearcher extends React.Component {
-  
+  state = {
+    title: ''
+  }
+
+  handleSubmit = () => {
+    const {title} = this.state;
+    this.props.handleSendRequest(title)
+    this.setState({
+      title: ''
+    })
+  }
+
+  handleInputTitle = (e) => {
+    e.preventDefault();
+    const title = e.target.value;
+    this.setState({
+      title
+    });
+  }
 
   render() {
+    const {title} = this.state;
+
     return (
-      <div>
+      <div className="search">
+        <input className="search-box" type="text" 
+          onChange={this.handleInputTitle} 
+          value={title}/>
+        <input className="button" type="submit" 
+          onClick={this.handleSubmit} 
+          value="Search"/>
+      </div>
+    );
+  }
+}
+
+/*
+<div>
         <h1>Google Book Search</h1>
         <form id="js-search-form">
           <label className="search-label">Search: </label>
@@ -27,6 +60,4 @@ export default class BookSearcher extends React.Component {
             </select>
         </form>
       </div>
-    );
-  }
-}
+*/
