@@ -1,14 +1,16 @@
 import React from 'react';
 import './BookSearcher.css';
+import SearchResult from './SearchResult';
 
 export default class BookSearcher extends React.Component {
   state = {
     title: ''
   }
 
-  handleSubmitTitle = () => {
+  // had to pass props to handleSubmitTitle
+  handleSubmitTitle = (sendRequest) => {
     const {title} = this.state;
-    this.props.handleSendRequest(title)
+    this.props.sendRequest(title)
     this.setState({
       title: ''
     })
@@ -49,6 +51,10 @@ export default class BookSearcher extends React.Component {
             <option value="book-type-option">Free-ebooks</option>
           </select>
       </form>
+      {/* {this.state.books.items.map((book => {
+            return <SearchResult Title={book.volumeInfo.title} />
+            }))
+          } */}
       </>
     );
   }

@@ -3,10 +3,8 @@ import './App.css';
 import BookSearcher from './BookSearcher';
 import SearchResult from './SearchResult';
 
-
-const apiKey = 'AIzaSyCqZ_I7yNLLBHimE2lv2UNeQw8eO_oO0qs'
-const searchURL = 'https://www.googleapis.com/books/v1/volumes/'
-
+const apiKey = 'AIzaSyCqZ_I7yNLLBHimE2lv2UNeQw8eO_oO0qs';
+const searchURL = 'https://www.googleapis.com/books/v1/volumes/';
 
 function formatQueryParams(params) {
   //To make the query statement that is joined with the api url for fetch to get the data
@@ -14,14 +12,13 @@ function formatQueryParams(params) {
   return queryItems.join('&');
 }
 
-
 export default class App extends React.Component {
   state = {
     books: []
   };
-  
 
-  sendRequest = (title) => {
+  sendRequest = title => {
+    console.log(`send request runs`);
     const params = {
       q: title,
       //printType: printType,
@@ -35,20 +32,26 @@ export default class App extends React.Component {
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        const books = data
-        this.setState({books});
-        console.log(url)
-      });
-      
-  }
+        const dataArray = Object.values(data.items);
+        console.log('dataArray', dataArray)
+        const books = dataArray;
 
+        this.setState({ books });
+        console.log('books', books);
+      });
+      // const itemsArray = Object.values(this.state.books.items);
+
+      
+  };
+
+     
   render() {
-    console.log(this.state.books)
-    
     return (
       <div className="App">
-        <BookSearcher handleSendRequest={this.sendRequest}/>
-          {this.state.books.items.map((book => {
+        <BookSearcher sendRequest={this.sendRequest} />
+
+        {console.log('state', this.state.books)}
+        {this.state.books.map((book => {
             return <SearchResult Title={book.volumeInfo.title} />
             }))
           }
