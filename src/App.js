@@ -18,7 +18,8 @@ function formatQueryParams(params) {
 export default class App extends React.Component {
   state = {
     books: []
-  }
+  };
+  
 
   sendRequest = (title) => {
     const params = {
@@ -42,15 +43,15 @@ export default class App extends React.Component {
   }
 
   render() {
-    
     console.log(this.state.books)
+    
     return (
       <div className="App">
         <BookSearcher handleSendRequest={this.sendRequest}/>
-        {this.state.books.map((book) => {
-          return <SearchResult {...book}/>
-          })
-        }
+          {this.state.books.items.map((book => {
+            return <SearchResult Title={book.volumeInfo.title} />
+            }))
+          }
       </div>
     );
   }

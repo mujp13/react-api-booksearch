@@ -5,7 +5,6 @@ export default class SearchResult extends React.Component {
   
   render() {
     const {Title} = this.props;
-
     return (
       <div className="movie">
         <div className="title-year">
