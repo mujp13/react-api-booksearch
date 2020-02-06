@@ -33,28 +33,29 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         const dataArray = Object.values(data.items);
-        console.log('dataArray', dataArray)
+        console.log('dataArray', dataArray);
         const books = dataArray;
 
         this.setState({ books });
         console.log('books', books);
       });
-      // const itemsArray = Object.values(this.state.books.items);
-
-      
+    // const itemsArray = Object.values(this.state.books.items);
   };
 
-     
   render() {
     return (
       <div className="App">
         <BookSearcher sendRequest={this.sendRequest} />
-
-        {console.log('state', this.state.books)}
-        {this.state.books.map((book => {
-            return <SearchResult Title={book.volumeInfo.title} />
-            }))
-          }
+        {this.state.books.map(book => {
+          return (
+            <SearchResult
+              Title={book.volumeInfo.title}
+              country={book.saleInfo.country}
+              snippet={book.searchInfo ? book.searchInfo.textSnippet : ``}
+              price={book.saleInfo.listPrice ? book.saleInfo.listPrice.amount : `not for sale`}
+            />
+          );
+        })}
       </div>
     );
   }
