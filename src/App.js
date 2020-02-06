@@ -21,11 +21,11 @@ export default class App extends React.Component {
   };
   
 
-  sendRequest = (title) => {
+  sendRequest = (title, printType, bookType) => {
     const params = {
       q: title,
-      //printType: printType,
-      //filter: filter,
+      printType: printType,
+      filter: bookType,
       key: apiKey
     };
 
@@ -35,23 +35,31 @@ export default class App extends React.Component {
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        const books = data
+        const dataArray = Object.values(data.items);
+        //console.log('dataArray', dataArray)
+        const books = dataArray;
         this.setState({books});
-        console.log(url)
+        //console.log(data)
       });
-      
   }
 
   render() {
-    console.log(this.state.books)
-    
     return (
       <div className="App">
-        <BookSearcher handleSendRequest={this.sendRequest}/>
-          {this.state.books.items.map((book => {
-            return <SearchResult Title={book.volumeInfo.title} />
+        <header className="App-header">
+          <BookSearcher handleSendRequest={this.sendRequest}/>
+          {console.log('state', this.state.books)}
+          {this.state.books.map((book => {
+            return <SearchResult 
+                    Title={book.volumeInfo.title}
+                    Author={book.volumeInfo.authors}
+                    Image={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : 'Image not available'}
+                    Price={book.saleInfo.listPrice ? book.saleInfo.listPrice.amount : 'Not for sale'}
+                    Desc={book.searchInfo ? book.searchInfo.textSnippet : ``}
+                  />
             }))
           }
+        </header>
       </div>
     );
   }

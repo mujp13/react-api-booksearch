@@ -3,7 +3,9 @@ import './BookSearcher.css';
 
 export default class BookSearcher extends React.Component {
   state = {
-    title: ''
+    title: '',
+    printType:'',
+    filter:''
   }
 
   handleSubmitTitle = () => {
@@ -22,29 +24,57 @@ export default class BookSearcher extends React.Component {
     });
   }
 
+  handleSelectPrintType = (e) => {
+    e.preventDefault();
+    const printType = e.target.value;
+    this.setState({
+      printType
+    });
+  }
+
+  handleSelectBookType = (e) => {
+    e.preventDefault();
+    const bookType = e.target.value;
+    this.setState({
+      bookType
+    });
+  }
+
   render() {
-    const {title} = this.state;
+    const {title, printType, bookType} = this.state;
 
     return (
       <>
       <h1>Google Book Search</h1>
       <div className="search">
-        <input className="search-box" type="text" 
+        Search: <input 
+          className="search-box"
+          type="search" 
           onChange={this.handleInputTitle} 
           value={title}/>
-        <input className="button" type="submit" 
+        <input 
+          className="button" 
+          type="submit" 
           onClick={this.handleSubmitTitle} 
           value="Search"/>
       </div>
       <form id='js-filter-form'>
         <label id='print-type-term' className="search-label">Print Type: </label>
-          <select className="arrows-printtype" name="Print Type">
+          <select 
+            className="arrows-printtype"
+            name="Print Type"
+            onChange={this.handleSelectPrintType}
+            value={printType}>
             <option value="print-type-option">all</option>
             <option value="print-type-option">books</option>
             <option value="print-type-option">magazines</option>
           </select>
         <label id='book-type-term'>Book Type: </label>
-          <select className="arrows-booktype" name="Print Type">
+          <select 
+            className="arrows-booktype" 
+            name="Print Type"
+            onChange={this.handleSelectBookType}
+            value={bookType}>
             <option value="book-type-option">No Filter</option>
             <option value="book-type-option">Free-ebooks</option>
           </select>

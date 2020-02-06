@@ -4,12 +4,15 @@ import './SearchResult.css';
 export default class SearchResult extends React.Component {
   
   render() {
-    const {Title} = this.props;
     return (
-      <div className="movie">
-        <div className="title-year">
-            <h1 className="title">{Title}</h1>
+      <div className='book'>
+        <div className='title'>
+          <h1>{this.props.Title}</h1>
         </div>
+        <div className='author'>{this.props.Author}</div>
+        <div className='price'>${this.props.Price}</div>
+        <div className='desc'>{this.props.Desc}</div>
+        <img src={this.props.Image} alt='Book image' />
       </div>
     );
   }
