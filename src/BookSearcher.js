@@ -4,16 +4,18 @@ import './BookSearcher.css';
 export default class BookSearcher extends React.Component {
   state = {
     title: '',
-    printType:'',
-    filter:''
+    printType:'all',
+    bookType:''
   }
 
-  handleSubmitTitle = () => {
-    const {title} = this.state;
-    this.props.handleSendRequest(title)
+  handleSubmit = () => {
+    const {title, printType, bookType} = this.state;
+    this.props.handleSendRequest(title, printType, bookType)
     this.setState({
-      title: ''
-    })
+      title,
+      printType,
+      bookType
+    });
   }
 
   handleInputTitle = (e) => {
@@ -47,16 +49,16 @@ export default class BookSearcher extends React.Component {
       <>
       <h1>Google Book Search</h1>
       <div className="search">
-        Search: <input 
-          className="search-box"
-          type="search" 
-          onChange={this.handleInputTitle} 
-          value={title}/>
-        <input 
-          className="button" 
-          type="submit" 
-          onClick={this.handleSubmitTitle} 
-          value="Search"/>
+          Search: <input 
+            className="search-box"
+            type="search" 
+            onChange={this.handleInputTitle} 
+            value={title} />
+          <input 
+            className="button" 
+            type="submit" 
+            onClick={this.handleSubmit} 
+            value="Search"/>
       </div>
       <form id='js-filter-form'>
         <label id='print-type-term' className="search-label">Print Type: </label>
@@ -65,9 +67,9 @@ export default class BookSearcher extends React.Component {
             name="Print Type"
             onChange={this.handleSelectPrintType}
             value={printType}>
-            <option value="print-type-option">all</option>
-            <option value="print-type-option">books</option>
-            <option value="print-type-option">magazines</option>
+            <option value="all">all</option>
+            <option value="books">books</option>
+            <option value="magazines">magazines</option>
           </select>
         <label id='book-type-term'>Book Type: </label>
           <select 
@@ -75,8 +77,8 @@ export default class BookSearcher extends React.Component {
             name="Print Type"
             onChange={this.handleSelectBookType}
             value={bookType}>
-            <option value="book-type-option">No Filter</option>
-            <option value="book-type-option">Free-ebooks</option>
+            <option value="No Filter"></option>
+            <option value="free-ebooks">free-ebooks</option>
           </select>
       </form>
       </>

@@ -29,6 +29,10 @@ export default class App extends React.Component {
       key: apiKey
     };
 
+    if(params.filter==='') {
+      delete params.filter;
+    }
+  
     const queryString = formatQueryParams(params);
     const url = searchURL + '?' + queryString;
 
@@ -39,7 +43,7 @@ export default class App extends React.Component {
         //console.log('dataArray', dataArray)
         const books = dataArray;
         this.setState({books});
-        //console.log(data)
+        console.log(url)
       });
   }
 
@@ -54,8 +58,8 @@ export default class App extends React.Component {
                     Title={book.volumeInfo.title}
                     Author={book.volumeInfo.authors}
                     Image={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : 'Image not available'}
-                    Price={book.saleInfo.listPrice ? book.saleInfo.listPrice.amount : 'Not for sale'}
-                    Desc={book.searchInfo ? book.searchInfo.textSnippet : ``}
+                    Price={book.saleInfo.listPrice ? book.saleInfo.listPrice.amount : 'not for sale'}
+                    Desc={book.searchInfo ? book.searchInfo.textSnippet : 'no description'}
                   />
             }))
           }
