@@ -7,7 +7,6 @@ import SearchResult from './SearchResult';
 const apiKey = 'AIzaSyCqZ_I7yNLLBHimE2lv2UNeQw8eO_oO0qs'
 const searchURL = 'https://www.googleapis.com/books/v1/volumes/'
 
-
 function formatQueryParams(params) {
   //To make the query statement that is joined with the api url for fetch to get the data
   const queryItems = Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
@@ -29,21 +28,23 @@ export default class App extends React.Component {
       key: apiKey
     };
 
-    if(params.filter==='') {
+    if (params.filter === 'No filter' || params.filter === '') {
       delete params.filter;
     }
-  
+
     const queryString = formatQueryParams(params);
     const url = searchURL + '?' + queryString;
 
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        const dataArray = Object.values(data.items);
-        //console.log('dataArray', dataArray)
-        const books = dataArray;
-        this.setState({books});
-        console.log(url)
+        if (data.totalItems > 0) {
+          const dataArray = Object.values(data.items);
+          //console.log('dataArray', dataArray)
+          const books = dataArray;
+          this.setState({ books });
+          console.log(url)
+        }
       });
   }
 

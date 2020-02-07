@@ -12,7 +12,7 @@ export default class SearchResult extends React.Component {
     return (
       <div className='book'>
         <div className='title'>
-          <h1>{this.props.Title}</h1>
+          <p>{this.props.Title}</p>
         </div>
         <div className='author'>{this.props.Author}</div>
         <div className='price'>{USCurrencyFormat.format(this.props.Price)}</div>

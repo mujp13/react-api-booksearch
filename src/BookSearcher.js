@@ -5,7 +5,7 @@ export default class BookSearcher extends React.Component {
   state = {
     title: '',
     printType:'all',
-    bookType:''
+    bookType: 'No filter'
   }
 
   handleSubmit = () => {
@@ -43,7 +43,7 @@ export default class BookSearcher extends React.Component {
   }
 
   render() {
-    const {title, printType, bookType} = this.state;
+    const {title} = this.state;
 
     return (
       <>
@@ -53,7 +53,7 @@ export default class BookSearcher extends React.Component {
             className="search-box"
             type="search" 
             onChange={this.handleInputTitle} 
-            value={title} />
+            value={title} required/>
           <input 
             className="button" 
             type="submit" 
@@ -61,23 +61,21 @@ export default class BookSearcher extends React.Component {
             value="Search"/>
       </div>
       <form id='js-filter-form'>
-        <label id='print-type-term' className="search-label">Print Type: </label>
+        <label id='print-type-term' className="print-type">Print Type: </label>
           <select 
             className="arrows-printtype"
             name="Print Type"
-            onChange={this.handleSelectPrintType}
-            value={printType}>
+            onChange={this.handleSelectPrintType}>
             <option value="all">all</option>
             <option value="books">books</option>
             <option value="magazines">magazines</option>
           </select>
-        <label id='book-type-term'>Book Type: </label>
+        <label id='book-type-term' className="book-type">Book Type: </label>
           <select 
             className="arrows-booktype" 
             name="Print Type"
-            onChange={this.handleSelectBookType}
-            value={bookType}>
-            <option value="No Filter"></option>
+            onChange={this.handleSelectBookType}>
+            <option value="No filter">No filter</option>
             <option value="free-ebooks">free-ebooks</option>
           </select>
       </form>
