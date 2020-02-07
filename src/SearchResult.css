@@ -1,0 +1,29 @@
+.title {
+  font-size: 250%;
+  text-align: center;
+}
+
+.author,
+.price,
+.desc {
+  text-align: center;
+}
+
+.image {
+  width: 20%;
+  height: 20%;
+  float: left;
+  
+}
+
+.within-search {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+}
+
+.texts {
+  width: 75%;
+  height: 100%;
+  font-size: 150%;
+}
